@@ -76,8 +76,9 @@ The input JSON data must contain the following keys:
 - `license`: The license data (string, required).
 
 
-On success the `result` will contain the key `valid` with value `true` and a key
-`features` with additional information about features this license will enable.
+On success the `result` will contain the key `valid` with value `true`, a key
+`expires` with the timestamp when the license will expire and a key `features`
+with additional information about features this license will enable.
 
 
 Example:
@@ -91,15 +92,14 @@ Example:
     $ spreedbox-license-keys validate --json < request.json
     {
        "result" : {
-          "features" : [
-             {
-                "sip" : {
-                   "endpoints" : 5,
-                   "room-calls" : 6,
-                   "total-calls" : 10
-                }
-             }
-          ],
+          "expires" : "21160721135455Z",
+          "features" : {
+            "sip" : {
+              "endpoints" : 5,
+              "room-calls" : 6,
+              "total-calls" : 10
+            }
+          },
           "valid" : true
        },
        "status" : "success"

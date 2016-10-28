@@ -130,9 +130,8 @@ def run_validate(*args):
 
   return_success({
     'valid': True,
-    'features': [
-      EXAMPLE_FEATURES,
-    ],
+    'expires': '21160721135455Z',
+    'features': EXAMPLE_FEATURES,
   })
 
 def run_install(*args):
