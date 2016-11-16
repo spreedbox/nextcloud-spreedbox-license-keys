@@ -39,12 +39,16 @@ The license data is sent to the backend service (see below) which will verify th
 List installed licenses
 
 The app provides an overview to list all installed licenses and also shows the available features.]]></description>
-    <licence>agpl</licence>
-    <author mail="peter.edens@spreedbox.me" >Peter Edens</author>
-    <version>0.0.1</version>
+    <licence>AGPL</licence>
+    <author>Peter Edens</author>
+    <version>0.0.4</version>
     <namespace>SpreedboxLicenseKeys</namespace>
     <category>tools</category>
     <dependencies>
-        <nextcloud min-version="10"/>
+        <owncloud min-version="9.1" max-version="9.2" />
     </dependencies>
+        <settings>
+        <admin>\OCA\SpreedboxLicenseKeys\Settings\AdminSettings</admin>
+        <admin-section>\OCA\SpreedboxLicenseKeys\Settings\AdminSection</admin-section>
+    </settings>
 </info>
