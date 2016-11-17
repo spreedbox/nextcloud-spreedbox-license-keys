@@ -17,12 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
+ 
+// add one file
+script('spreedboxlicensekeys', 'script');  // adds js/script.js
 ?>
 
 <div class="section" id="requestLicenseSection">
 	<h2>Request License</h2>
-    <form id="licenserequestform">
+    <form name="licenserequestform" id="licenserequestform">
         <!--The name (string, required)-->
         <p>
             <label for="name">Name</label>
@@ -56,8 +58,8 @@
         </p>
         <!--The email address (string, required)-->
         <p>
-            <label for="mail_from_address">Email address</label>
-            <input type="text" name="mail_from_address" id="mail_from_address" placeholder="mail" value="">@
+            <label for="mail_address">Email address</label>
+            <input type="text" name="mail_address" id="mail_address" placeholder="mail" value="">@
             <input type="text" name="mail_domain" id="mail_domain" placeholder="example.com" value="">
         </p>
         <input type="submit" name="requestlicense" id="requestlicense" value="Request License">
