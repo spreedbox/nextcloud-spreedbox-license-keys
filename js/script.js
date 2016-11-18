@@ -1,42 +1,65 @@
 	
 function validateLicenseRequestForm() {
+    var ret = true;
+    
     var name = document.forms["licenserequestform"]["name"].value;
     if (name == "") {
-        alert("Name must be filled out");
-        return false;
+        $("#name_error").css("visibility", "visible");
+        ret = false;
+    }
+    else {
+        $("#name_error").css("visibility", "hidden");
     }
     
     var street = document.forms["licenserequestform"]["street"].value;
     if (street == "") {
-        alert("Street must be filled out");
-        return false;
+        $("#street_error").css("visibility", "visible");
+        ret = false;
+    }
+    else {
+        $("#street_error").css("visibility", "hidden");
     }
     
     var zipcode = document.forms["licenserequestform"]["zipcode"].value;
     if (zipcode == "") {
-        alert("zipcode must be filled out");
-        return false;
+        $("#zipcode_error").css("visibility", "visible");
+        ret = false;
+    }
+    else {
+        $("#zipcode_error").css("visibility", "hidden");
     }
     
     var city = document.forms["licenserequestform"]["city"].value;
     if (city == "") {
-        alert("city must be filled out");
-        return false;
+        $("#city_error").css("visibility", "visible");
+        ret = false;
+    }
+    else {
+        $("#city_error").css("visibility", "hidden");
     }
     
     var countrycode = document.forms["licenserequestform"]["countrycode"].value;
     if (countrycode == "") {
-        alert("countrycode must be filled out");
-        return false;
+        $("#countrycode_error").css("visibility", "visible");
+        ret = false;
+    }
+    else {
+        $("#countrycode_error").css("visibility", "hidden");
     }
     
     var mail_address = document.forms["licenserequestform"]["mail_address"].value;
     var mail_domain = document.forms["licenserequestform"]["mail_domain"].value;
     if (mail_address == "" || mail_domain == "") {
-        alert("email address must be filled out");
-        return false;
+        $("#mail_address_error").css("visibility", "visible");
+        ret = false;
     }
+    else {
+        $("#mail_address_error").css("visibility", "hidden");
+    }
+    
+    return ret;
 }
+
 function ConvertFormToJSON(form){
     var array = jQuery(form).serializeArray();
     var json = {};

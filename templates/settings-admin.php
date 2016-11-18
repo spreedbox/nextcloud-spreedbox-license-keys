@@ -20,13 +20,16 @@
  
 // add one file
 script('spreedboxlicensekeys', 'script');  // adds js/script.js
+style('spreedboxlicensekeys', 'style');  // adds css/style.css
 ?>
 
 <div class="section" id="requestLicenseSection">
 	<h2>Request License</h2>
     <form name="licenserequestform" id="licenserequestform">
+    
         <!--The name (string, required)-->
         <p>
+            <div id="name_error" class="errortext">Name is required</div>
             <label for="name">Name</label>
             <input type="text" name="name" id="name" placeholder="name" value="">
         </p>
@@ -37,17 +40,21 @@ script('spreedboxlicensekeys', 'script');  // adds js/script.js
         </p>
         <!--The street (string, required)-->
         <p>
+            <div id="street_error" class="errortext">Street is required</div>
             <label for="street">Street</label>
             <input type="text" name="street" id="street" placeholder="street" value="">
         </p>
         <!--The zipcode and city (string, required)-->
         <p>
             <label for="street">Zipcode and City</label>
+            <div id="zipcode_error" class="errortext">Zipcode is required</div>
             <input type="text" name="zipcode" id="zipcode" placeholder="zipcode" value="">
+            <div id="city_error" class="errortext">City is required</div>
             <input type="text" name="city" id="city" placeholder="city" value="">
         </p>
         <!--The two-letter country code (string, required)-->
         <p>
+            <div id="countrycode_error" class="errortext">Country code is required</div>
             <label for="countrycode">two-letter country code</label>
             <input type="text" name="countrycode" id="countrycode" placeholder="countrycode" value="">
         </p>
@@ -58,6 +65,7 @@ script('spreedboxlicensekeys', 'script');  // adds js/script.js
         </p>
         <!--The email address (string, required)-->
         <p>
+            <div id="mail_address_error" class="errortext">Email address is required</div>
             <label for="mail_address">Email address</label>
             <input type="text" name="mail_address" id="mail_address" placeholder="mail" value="">@
             <input type="text" name="mail_domain" id="mail_domain" placeholder="example.com" value="">

@@ -1,3 +1,4 @@
-#hello {
+.errortext {
 	color: red;
+    visibility: hidden;
 }
