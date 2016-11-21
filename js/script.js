@@ -81,15 +81,32 @@ jQuery(document).on('ready', function() {
         
         var form = this;
         var json = ConvertFormToJSON(form);
-        var target = OC.generateUrl('/apps/spreedboxlicensekeys/ajax/submit.php');
+        var target = OC.generateUrl('/apps/spreedboxlicensekeys/request_license');
 
         $.ajax({
             type: "POST",
             url: target,
-            data: json,
-            dataType: "json"
+            data: JSON.stringify(json),
+            dataType: "json",
+            contentType: "application/json"
         }).success(function(result) { 
-            alert(result);
+            alert(JSON.stringify(result));
+        }).fail(function() { 
+            alert("Failed to submit request"); 
+        });
+
+        return true;
+    });
+
+    $("#showlicenses").click( function(event){
+       
+        var target = OC.generateUrl('/apps/spreedboxlicensekeys/list_licenses');
+
+        $.ajax({
+            type: "GET",
+            url: target,
+        }).success(function(result) { 
+            document.getElementById("license_content").innerHTML = "<p>" + "License Content: " + JSON.stringify(result);
         }).fail(function() { 
             alert("Failed to submit request"); 
         });

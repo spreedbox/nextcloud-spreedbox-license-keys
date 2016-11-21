@@ -11,6 +11,8 @@ return [
     'routes' => [
 	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 	   ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
-	   ['name' => 'spreedboxlicensekeys#ajax_submit', 'url' => 'ajax/submit.php', 'verb' => 'POST'],
+	   ['name' => 'license#request_license', 'url' => '/request_license', 'verb' => 'POST'],
+	   ['name' => 'license#install_license', 'url' => '/install_license', 'verb' => 'POST'],
+	   ['name' => 'license#list_licenses', 'url' => '/list_licenses', 'verb' => 'GET'],
     ]
 ];

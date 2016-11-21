@@ -27,4 +27,5 @@ OCP\JSON::callCheck();
   $json = file_get_contents('php://input');
 
 OCP\JSON::success($json); 
+echo "success";
 ?>

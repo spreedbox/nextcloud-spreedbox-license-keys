@@ -93,5 +93,6 @@ style('spreedboxlicensekeys', 'style');  // adds css/style.css
     
 	<h2>Installed Licenses</h2>
     <button id="showlicenses">List Licenses</button>
+    <div id="license_content"></div>
 </div>
 
