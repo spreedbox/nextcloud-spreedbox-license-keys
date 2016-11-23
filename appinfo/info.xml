@@ -46,6 +46,7 @@ The app provides an overview to list all installed licenses and also shows the a
     <category>tools</category>
     <dependencies>
         <owncloud min-version="9.1" max-version="9.2" />
+        <nextcloud min-version="9.1" max-version="11" />
     </dependencies>
         <settings>
         <admin>\OCA\SpreedboxLicenseKeys\Settings\AdminSettings</admin>
