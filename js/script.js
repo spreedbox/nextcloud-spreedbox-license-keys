@@ -1,4 +1,7 @@
 	
+var REQUEST_HEADER = '-----BEGIN LICENSE REQUEST-----\n';
+var REQUEST_FOOTER = '-----END LICENSE REQUEST-----\n';
+
 function validateLicenseRequestForm() {
     var ret = true;
     
@@ -82,6 +85,29 @@ jQuery(document).on('ready', function() {
         var form = this;
         var json = ConvertFormToJSON(form);
         var target = OC.generateUrl('/apps/spreedboxlicensekeys/request_license');
+
+        $.ajax({
+            type: "POST",
+            url: target,
+            data: JSON.stringify(json),
+            dataType: "json",
+            contentType: "application/json"
+        }).success(function(result) { 
+            var request = REQUEST_HEADER + result.request + REQUEST_FOOTER;
+            document.getElementById("license_request").innerHTML = request;
+        }).fail(function() { 
+            alert("Failed to submit request"); 
+        });
+
+        return true;
+    });
+
+    jQuery('form#licenseinstallform').bind('submit', function(event){
+        event.preventDefault();
+        
+        var form = this;
+        var json = ConvertFormToJSON(form);
+        var target = OC.generateUrl('/apps/spreedboxlicensekeys/install_license');
 
         $.ajax({
             type: "POST",

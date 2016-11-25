@@ -72,6 +72,7 @@ style('spreedboxlicensekeys', 'style');  // adds css/style.css
         </p>
         <input type="submit" name="requestlicense" id="requestlicense" value="Request License">
     </form>
+    <div id="license_request"></div>
     
     <br></br>
     
@@ -87,6 +88,7 @@ style('spreedboxlicensekeys', 'style');  // adds css/style.css
             <label for="licensefile">License File</label>
             <input type="file" name="licensefile" id="licensefile" placeholder="license file" value="">
         </p>
+        <input type="submit" name="installlicense" id="installlicense" value="Install License">
     </form>
     
     <br></br>
