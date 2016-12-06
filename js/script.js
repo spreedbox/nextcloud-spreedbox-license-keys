@@ -93,8 +93,16 @@ jQuery(document).on('ready', function() {
             dataType: "json",
             contentType: "application/json"
         }).success(function(result) { 
-            var request = REQUEST_HEADER + result.request + REQUEST_FOOTER;
-            document.getElementById("license_request").innerHTML = request;
+            
+            if (result.status == "success") {
+                // pretty print in html
+                var str = result.result.request;
+                str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                document.getElementById("license_request").innerHTML = str;
+            }
+            else {
+                document.getElementById("license_request").innerHTML = "An error occured";
+            }
         }).fail(function() { 
             alert("Failed to submit request"); 
         });

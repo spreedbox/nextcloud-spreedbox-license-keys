@@ -18,14 +18,24 @@ class LicenseController extends Controller {
         
         fclose($temp); // this removes the file
         
-        return array('request' => $request);
+        return json_decode(implode($request), TRUE);
     }
 
     public function installLicense($license) {
-        return array('saved' => 'true', 'filename' => 'path/to/');
+        $temp = tmpfile();
+        fwrite($temp, $json_data);
+        $metaDatas = stream_get_meta_data($temp);
+        $tmpFilename = $metaDatas['uri'];
+        
+        exec( 'spreedbox-license-keys install ' . $tmpFilename, $request) ;
+        
+        fclose($temp); // this removes the file
+        return array('result' => implode($request));
     }
     
     public function listLicenses() {
-        return array('license' => 'test license');
+        exec( 'ls /etc/spreedbox/licenses/', $request);
+        return array('license' => $request);
     }
 }
+?>

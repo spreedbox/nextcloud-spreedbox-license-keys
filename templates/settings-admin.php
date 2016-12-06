@@ -56,7 +56,7 @@ style('spreedboxlicensekeys', 'style');  // adds css/style.css
         <p>
             <div id="countrycode_error" class="errortext">Country code is required</div>
             <label for="countrycode">two-letter country code</label>
-            <input type="text" name="countrycode" id="countrycode" placeholder="countrycode" value="">
+            <input type="text" maxlength="2" name="countrycode" id="countrycode" placeholder="countrycode" value="">
         </p>
         <!--The phone number (string, optional)-->
         <p>
