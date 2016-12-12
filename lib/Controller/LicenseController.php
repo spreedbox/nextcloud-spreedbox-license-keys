@@ -23,7 +23,7 @@ class LicenseController extends Controller {
 
     public function installLicense($license) {
         $temp = tmpfile();
-        fwrite($temp, $json_data);
+        fwrite($temp, $license);
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
         

@@ -82,6 +82,9 @@ jQuery(document).on('ready', function() {
             return false;
         }
         
+        // feedback to the user to show we are performing the request as it can take several seconds
+        $("#license_request_loading").show();
+        
         var form = this;
         var json = ConvertFormToJSON(form);
         var target = OC.generateUrl('/apps/spreedboxlicensekeys/request_license');
@@ -94,17 +97,20 @@ jQuery(document).on('ready', function() {
             contentType: "application/json"
         }).success(function(result) { 
             
+            $("#license_request_loading").hide();
             if (result.status == "success") {
                 // pretty print in html
                 var str = result.result.request;
                 str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                $("#request_instructions").show();
                 document.getElementById("license_request").innerHTML = str;
             }
             else {
                 document.getElementById("license_request").innerHTML = "An error occured";
             }
         }).fail(function() { 
-            alert("Failed to submit request"); 
+            $("#license_request_loading").hide();
+            document.getElementById("license_request").innerHTML = "Failed to submit request";
         });
 
         return true;
@@ -116,6 +122,9 @@ jQuery(document).on('ready', function() {
         var form = this;
         var json = ConvertFormToJSON(form);
         var target = OC.generateUrl('/apps/spreedboxlicensekeys/install_license');
+    
+        // feedback to the user to show we are performing the request as it can take several seconds
+        $("#license_install_loading").show();
 
         $.ajax({
             type: "POST",
@@ -124,9 +133,11 @@ jQuery(document).on('ready', function() {
             dataType: "json",
             contentType: "application/json"
         }).success(function(result) { 
-            alert(JSON.stringify(result));
+            $("#license_install_loading").hide();
+            $("#license_install").innderHTML = JSON.stringify(result);
         }).fail(function() { 
-            alert("Failed to submit request"); 
+            $("#license_install_loading").hide();
+            $("#license_install").innderHTML = "Failed to submit request"; 
         });
 
         return true;
@@ -147,4 +158,38 @@ jQuery(document).on('ready', function() {
 
         return true;
     });
+    
+    $("#copytoclipboard").click( function(event) {
+        // Create a "hidden" input
+        var aux = document.createElement("input");
+        var str = document.getElementById("license_request").innerHTML;
+        str = str.replace(/<br\s*[\/]?>/gi, '\n');
+        
+        // Assign it the value of the specified element
+        aux.setAttribute("value", str);
+
+        // Append it to the body
+        document.body.appendChild(aux);
+
+        // Highlight its content
+        aux.select();
+
+        // Copy the highlighted text
+        document.execCommand("copy");
+
+        // Remove it from the body
+        document.body.removeChild(aux);
+    });
+    
+    $('input[name=licensefile]').change(function() {
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var textArea = document.getElementById("license");
+            textArea.value = e.target.result;
+        };
+        var f = document.getElementById('licensefile').files[0];
+        reader.readAsText(f);
+    });
 });
+
