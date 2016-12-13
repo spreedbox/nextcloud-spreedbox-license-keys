@@ -337,7 +337,7 @@ style('spreedboxlicensekeys', 'style');  // adds css/style.css
 	<h2>Install License</h2>
     <form id="licenseinstallform">
         <!--The license (string, required)-->
-        <textarea style="height:200px; width:600px;" name="license" id="license" placeholder="Paste a license string or select the license file on disk" value=""></textarea>
+        <textarea style="height:200px; width:600px;" name="license" id="license" placeholder="Paste a license string or select the license file on disk"></textarea>
        
         <!--The license file(string, required)-->
         <p>

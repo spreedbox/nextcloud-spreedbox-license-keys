@@ -137,17 +137,17 @@ jQuery(document).on('ready', function() {
             $("#license_install_loading").hide();
             
             if (result.status == "success") {
-                document.getElementById("license_install").innerHTML = "<p>Successfully installed license!";
+                $("#license_install").text("<p>Successfully installed license!");
             }
             else if (result.status == "error"){
-                document.getElementById("license_install").innerHTML = "<p>" + result.message;
+                $("#license_install").text("<p>" + result.message);
             }
             else {
                 document.getElementById("license_install").innerHTML = "<p>Failed to install license!";
             }
         }).fail(function() { 
             $("#license_install_loading").hide();
-            document.getElementById("license_install").innerHTML.innerHTML = "Failed to submit request"; 
+            $("#license_install").text("Failed to submit request"); 
         });
 
         return true;
