@@ -34,6 +34,30 @@ class LicenseController extends Controller {
         return "could not open process";
     }
     
+    private function rec_listFiles( $from = '.')
+    {
+        if(! is_dir($from))
+            return false;
+        
+        $files = array();
+        if( $dh = opendir($from))
+        {
+            while( false !== ($file = readdir($dh)))
+            {
+                // Skip '.' and '..'
+                if( $file == '.' || $file == '..')
+                    continue;
+                $path = $from . '/' . $file;
+                if( is_dir($path) )
+                    $files += rec_listFiles($path);
+                else
+                    $files[] = $path;
+            }
+            closedir($dh);
+        }
+        return $files;
+    }
+    
     public function requestLicense($name, $company, $street, $zipcode, $city, $countrycode, $phonenumber, $mail_address, $mail_domain) {
         $array_data = array('name' => $name, 'company' => $company, 'street' => $street, 'zipcode_city' => $zipcode . $city, 'country_code' => $countrycode, 'phone' => $phonenumber, 'email' => $mail_address . '@' . $mail_domain);
         $json_data = json_encode($array_data, JSON_FORCE_OBJECT);
@@ -44,20 +68,30 @@ class LicenseController extends Controller {
     }
 
     public function installLicense($license) {
-        $temp = tmpfile();
-        fwrite($temp, $license);
-        $metaDatas = stream_get_meta_data($temp);
-        $tmpFilename = $metaDatas['uri'];
+        // using current date and time for filename
+        $name='license_'.date('m-d-Y_hia').'.txt';
         
-        exec( 'spreedbox-license-keys install ' . $tmpFilename, $request) ;
+        $array_data = array('license' => $license, 'name' => $name);
+        $json_data = json_encode($array_data, JSON_FORCE_OBJECT);
         
-        fclose($temp); // this removes the file
-        return array('result' => implode($request));
+        $request = $this->runCommand('spreedbox-license-keys --json install', $json_data);
+        
+        return json_decode($request, TRUE);
     }
     
     public function listLicenses() {
-        exec( 'ls /etc/spreedbox/licenses/', $request);
-        return array('license' => $request);
+        $dir = "/etc/spreedbox/licenses/";
+
+        $files = $this->rec_listFiles($dir);
+       
+        $response = array();
+        
+        foreach ($files as $file) {
+            exec( 'spreedbox-license-keys validate ' . $file, $validation) ;
+            array_push($response, $validation);
+        }
+        
+        return array('licenses' => $response);
     }
 }
 ?>
