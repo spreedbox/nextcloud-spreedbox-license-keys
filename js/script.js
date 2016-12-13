@@ -103,14 +103,14 @@ jQuery(document).on('ready', function() {
                 var str = result.result.request;
                 str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
                 $("#request_instructions").show();
-                document.getElementById("license_request").innerHTML = str;
+                $("#license_request").text(str);
             }
             else {
-                document.getElementById("license_request").innerHTML = "An error occured";
+                $("#license_request").text("An error occured");
             }
         }).fail(function() { 
             $("#license_request_loading").hide();
-            document.getElementById("license_request").innerHTML = "Failed to submit request";
+            $("#license_request").text("Failed to submit request");
         });
 
         return true;
@@ -125,7 +125,7 @@ jQuery(document).on('ready', function() {
     
         // feedback to the user to show we are performing the request as it can take several seconds
         $("#license_install_loading").show();
-        document.getElementById("license_install").innerHTML = "";
+        $("#license_install").text("");
         
         $.ajax({
             type: "POST",
@@ -137,13 +137,13 @@ jQuery(document).on('ready', function() {
             $("#license_install_loading").hide();
             
             if (result.status == "success") {
-                $("#license_install").text("<p>Successfully installed license!");
+                $("#license_install").text("Successfully installed license!");
             }
             else if (result.status == "error"){
-                $("#license_install").text("<p>" + result.message);
+                $("#license_install").text(result.message);
             }
             else {
-                document.getElementById("license_install").innerHTML = "<p>Failed to install license!";
+                $("#license_install").text("Failed to install license!");
             }
         }).fail(function() { 
             $("#license_install_loading").hide();
@@ -161,9 +161,9 @@ jQuery(document).on('ready', function() {
             type: "GET",
             url: target,
         }).success(function(result) { 
-            document.getElementById("license_content").innerHTML = "<p>" + "License Content: " + JSON.stringify(result);
+            $("#license_content").text("License Content: " + JSON.stringify(result));
         }).fail(function() { 
-            alert("Failed to submit request"); 
+            $("#license_content").text("Failed to submit request"); 
         });
 
         return true;
