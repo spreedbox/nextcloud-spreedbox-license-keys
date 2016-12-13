@@ -125,7 +125,8 @@ jQuery(document).on('ready', function() {
     
         // feedback to the user to show we are performing the request as it can take several seconds
         $("#license_install_loading").show();
-
+        document.getElementById("license_install").innerHTML = "";
+        
         $.ajax({
             type: "POST",
             url: target,
@@ -134,10 +135,19 @@ jQuery(document).on('ready', function() {
             contentType: "application/json"
         }).success(function(result) { 
             $("#license_install_loading").hide();
-            $("#license_install").innderHTML = JSON.stringify(result);
+            
+            if (result.status == "success") {
+                document.getElementById("license_install").innerHTML = "<p>Successfully installed license!";
+            }
+            else if (result.status == "error"){
+                document.getElementById("license_install").innerHTML = "<p>" + result.message;
+            }
+            else {
+                document.getElementById("license_install").innerHTML = "<p>Failed to install license!";
+            }
         }).fail(function() { 
             $("#license_install_loading").hide();
-            $("#license_install").innderHTML = "Failed to submit request"; 
+            document.getElementById("license_install").innerHTML.innerHTML = "Failed to submit request"; 
         });
 
         return true;

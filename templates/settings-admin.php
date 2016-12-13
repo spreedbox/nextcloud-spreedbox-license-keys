@@ -345,10 +345,11 @@ style('spreedboxlicensekeys', 'style');  // adds css/style.css
             <input type="file" name="licensefile" id="licensefile" placeholder="license file" value="">
         </p>
         <input type="submit" name="installlicense" id="installlicense" value="Install License">
-        <div id="license_install"></div>
-        <div id="license_install_loading" class="loader"></div>
     </form>
-    
+
+    <div id="license_install"></div>
+    <div id="license_install_loading" class="loader"></div>
+
     <br></br>
     
 	<h2>Installed Licenses</h2>
