@@ -74,6 +74,18 @@ function ConvertFormToJSON(form){
     return json;
 }
 
+function ListFeatures(features, id) {
+    $.each(features, function(key, val) {
+        if (typeof val === "object") {
+            $(id).append("<br>" + key + ": ");
+            ListFeatures(val, id);
+        }
+        else {
+            $(id).append("<br>" + key + ": " + val);
+        }
+    });
+}
+
 jQuery(document).on('ready', function() {
     jQuery('form#licenserequestform').bind('submit', function(event){
         event.preventDefault();
@@ -161,7 +173,15 @@ jQuery(document).on('ready', function() {
             type: "GET",
             url: target,
         }).success(function(result) { 
-            $("#license_content").text("License Content: " + JSON.stringify(result));
+            // reset
+            $("#license_content").text("");
+            
+            $.each(result.licenses, function(index, license) {
+                var item = license.result;
+                $("#license_content").append("<br><br>Valid: " + item.valid + "<br>Expires: " + item.expires + "<br>Features:");  
+                ListFeatures(item.features, "#license_content");
+            });
+            
         }).fail(function() { 
             $("#license_content").text("Failed to submit request"); 
         });

@@ -87,8 +87,11 @@ class LicenseController extends Controller {
         $response = array();
         
         foreach ($files as $file) {
-            exec( 'spreedbox-license-keys validate ' . $file, $validation) ;
-            array_push($response, $validation);
+            $license = file_get_contents($file);
+            $array_data = array('license' => $license, 'name' => $file);
+            $json_data = json_encode($array_data, JSON_FORCE_OBJECT);
+            $validation = $this->runCommand('spreedbox-license-keys --json validate ', $json_data) ;
+            array_push($response, json_decode($validation));
         }
         
         return array('licenses' => $response);
