@@ -21,3 +21,11 @@
 div.features {
     font-weight: bold;
 }
+
+.expired {
+	color: red;
+}
+
+.valid {
+	color: green;
+}

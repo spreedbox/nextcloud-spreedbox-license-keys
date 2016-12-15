@@ -77,13 +77,32 @@ function ConvertFormToJSON(form){
 function ListFeatures(features, id) {
     $.each(features, function(key, val) {
         if (typeof val === "object") {
-            $(id).append("<br>" + key + ": ");
+            $(id).append("<section>" + key + "</section>");
             ListFeatures(val, id);
         }
         else {
             $(id).append("<br>" + key + ": " + val);
         }
     });
+}
+
+function ParseDate(date) {
+    var retVal = "<span ";
+    var dateObj = new Date(date.slice(0, 4), date.slice(4, 6) - 1, date.slice(6, 8),
+        date.slice(8, 10), date.slice(10, 12), date.slice(12, 14));
+    
+    var now = new Date();
+    if (dateObj < now) {
+        // selected date is in the past
+        retVal += "class=\"expired\">";
+    }
+    else {
+        retVal += "class=\"valid\">";
+    }
+    
+    retVal += dateObj.toDateString();
+    retVal += "</span>";
+    return retVal;
 }
 
 jQuery(document).on('ready', function() {
@@ -178,7 +197,7 @@ jQuery(document).on('ready', function() {
             
             $.each(result.licenses, function(index, license) {
                 var item = license.result;
-                $("#license_content").append("<br><br>Valid: " + item.valid + "<br>Expires: " + item.expires + "<br>Features:");  
+                $("#license_content").append("<br><br>Valid: " + item.valid + "<br>Expires: " + ParseDate(item.expires) + "<header>Features</header>");  
                 ListFeatures(item.features, "#license_content");
             });
             
