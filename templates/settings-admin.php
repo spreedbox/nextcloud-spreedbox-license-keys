@@ -20,6 +20,7 @@
  
 // add one file
 script('spreedboxlicensekeys', 'script');  // adds js/script.js
+script('spreedboxlicensekeys', 'moment-with-locales');  // adds js/moment-with-locales.js
 style('spreedboxlicensekeys', 'style');  // adds css/style.css
 ?>
 

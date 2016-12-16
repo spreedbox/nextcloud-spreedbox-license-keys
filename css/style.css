@@ -18,8 +18,32 @@
     100% { transform: rotate(360deg); }
 }
 
-div.features {
+article.features {
+ 
+}
+
+.features_heading {
     font-weight: bold;
+}
+
+section {
+    border: solid #000;
+    border-width: 1px;
+    width: 80%;
+}
+aside {
+    border: solid #000;
+    border-width: 1px;
+    width: 40%;
+}
+
+.item {
+  background: #98D2E3;
+  border-radius: 1px;
+  color: #fff;
+  display: block;
+  padding: 12px 15px;
+  text-align: center;
 }
 
 .expired {

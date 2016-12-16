@@ -74,25 +74,27 @@ function ConvertFormToJSON(form){
     return json;
 }
 
-function ListFeatures(features, id) {
+function ListFeatures(features) {
+    var retVal = "";
     $.each(features, function(key, val) {
         if (typeof val === "object") {
-            $(id).append("<section>" + key + "</section>");
-            ListFeatures(val, id);
+            retVal += "<section class=\"item\">" + key;
+            retVal += ListFeatures(val) + "</section>";
         }
         else {
-            $(id).append("<br>" + key + ": " + val);
+            retVal += "<br>" + key + ": " + val;
         }
     });
+    
+    return retVal;
 }
 
 function ParseDate(date) {
     var retVal = "<span ";
-    var dateObj = new Date(date.slice(0, 4), date.slice(4, 6) - 1, date.slice(6, 8),
-        date.slice(8, 10), date.slice(10, 12), date.slice(12, 14));
+    var dateObj = moment(date, "YYYYMMDDHHmmZ").utc();
     
     var now = new Date();
-    if (dateObj < now) {
+    if (!dateObj.isAfter(now)) {
         // selected date is in the past
         retVal += "class=\"expired\">";
     }
@@ -100,7 +102,7 @@ function ParseDate(date) {
         retVal += "class=\"valid\">";
     }
     
-    retVal += dateObj.toDateString();
+    retVal += dateObj.format("MM-DD-YYYY HH:mm");
     retVal += "</span>";
     return retVal;
 }
@@ -197,8 +199,10 @@ jQuery(document).on('ready', function() {
             
             $.each(result.licenses, function(index, license) {
                 var item = license.result;
-                $("#license_content").append("<br><br>Valid: " + item.valid + "<br>Expires: " + ParseDate(item.expires) + "<header>Features</header>");  
-                ListFeatures(item.features, "#license_content");
+                var featuresContent = "<br><br>Valid: " + item.valid + "<br>Expires: " + ParseDate(item.expires) + "<article class=\"features\"><header class=\"features_heading\">Features</header>";
+                featuresContent += ListFeatures(item.features);
+                featuresContent += "</article>";
+                $("#license_content").append(featuresContent);  
             });
             
         }).fail(function() { 
