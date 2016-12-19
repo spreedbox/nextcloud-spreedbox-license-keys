@@ -91,10 +91,12 @@ function ListFeatures(features) {
 
 function ParseDate(date) {
     var retVal = "<span ";
-    var dateObj = moment(date, "YYYYMMDDHHmmZ").utc();
+    var momentObj = moment(date, "YYYYMMDDHHmmssZ");
+    var formatted = OC.Util.formatDate(momentObj);
+
     
     var now = new Date();
-    if (!dateObj.isAfter(now)) {
+    if (!momentObj.isAfter(now)) {
         // selected date is in the past
         retVal += "class=\"expired\">";
     }
@@ -102,7 +104,7 @@ function ParseDate(date) {
         retVal += "class=\"valid\">";
     }
     
-    retVal += dateObj.format("MM-DD-YYYY HH:mm");
+    retVal += formatted;
     retVal += "</span>";
     return retVal;
 }
