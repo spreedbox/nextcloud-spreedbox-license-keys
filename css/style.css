@@ -18,32 +18,45 @@
     100% { transform: rotate(360deg); }
 }
 
-article.features {
- 
-}
-
 .features_heading {
     font-weight: bold;
+    background: #98D2E3;
+    border-radius: 1px;
+    color: #fff;
+    display: block;
+    padding: 12px 15px;
+    text-align: center;    
 }
 
-section {
-    border: solid #000;
+.license_item {
+    background: #eeeeee;
+    border: solid #dddddd;
     border-width: 1px;
-    width: 80%;
-}
-aside {
-    border: solid #000;
-    border-width: 1px;
-    width: 40%;
 }
 
-.item {
-  background: #98D2E3;
-  border-radius: 1px;
-  color: #fff;
-  display: block;
-  padding: 12px 15px;
-  text-align: center;
+table {
+    border: solid #cccccc;
+    border-width: 1px;
+    margin: auto;
+}
+
+th {
+    font-weight: bold;
+    background: #d7edf4;
+    border-radius: 1px;
+    padding: 12px 15px;
+    text-align: center;
+    border: solid #cccccc;
+    border-width: 1px;
+}
+
+td {
+    background: #ebf6fa;
+    border-radius: 1px;
+    padding: 12px 15px;
+    text-align: center;
+    border: solid #cccccc;
+    border-width: 1px;
 }
 
 .expired {

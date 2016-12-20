@@ -68,6 +68,20 @@ class LicenseController extends Controller {
     }
 
     public function installLicense($license) {
+        // check if we already have this license installed
+        $dir = "/etc/spreedbox/licenses/";
+
+        $files = $this->rec_listFiles($dir);
+       
+        $response = array();
+        
+        foreach ($files as $file) {
+            $licensecontent = file_get_contents($file);
+            if (strcmp($license, $licensecontent) == 0) {
+                return array('status' => 'error', 'message' => 'License already installed!');
+            }
+        }
+        
         // using current date and time for filename
         $name='license_'.date('m-d-Y_hia').'.txt';
         

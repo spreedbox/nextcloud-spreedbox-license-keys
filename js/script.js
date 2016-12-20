@@ -76,15 +76,34 @@ function ConvertFormToJSON(form){
 
 function ListFeatures(features) {
     var retVal = "";
+    var headers = [];
+    var values = [];
+    
     $.each(features, function(key, val) {
+        
         if (typeof val === "object") {
-            retVal += "<section class=\"item\">" + key;
-            retVal += ListFeatures(val) + "</section>";
+            retVal += "<section><header class=\"features_heading\">" + key + "</header><br><table>";
+            retVal += ListFeatures(val) + "</table></section>";
         }
         else {
-            retVal += "<br>" + key + ": " + val;
+            headers.push(key);
+            values.push(val);
         }
     });
+    
+    // add table headers
+    retVal += "<tr>";
+    $.each(headers, function(index, val) {
+        retVal += "<th>" + val + "</th>";
+    });
+    retVal += "</tr>";
+    
+    // add table values
+    retVal += "<tr>";
+    $.each(values, function(index, val) {
+        retVal += "<td>" + val + "</td>";
+    });
+    retVal += "</tr>";
     
     return retVal;
 }
@@ -201,9 +220,9 @@ jQuery(document).on('ready', function() {
             
             $.each(result.licenses, function(index, license) {
                 var item = license.result;
-                var featuresContent = "<br><br>Valid: " + item.valid + "<br>Expires: " + ParseDate(item.expires) + "<article class=\"features\"><header class=\"features_heading\">Features</header>";
+                var featuresContent = "<br><br><div class=\"license_item\"><article class=\"features\">";
                 featuresContent += ListFeatures(item.features);
-                featuresContent += "</article>";
+                featuresContent += "</article><br>Valid: " + item.valid + "<br>Expires: " + ParseDate(item.expires) + "</div>";
                 $("#license_content").append(featuresContent);  
             });
             
